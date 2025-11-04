@@ -1,0 +1,10 @@
+Complexity Summary
+Operation	            Time Complexity	    Space Complexity	DSA Explanation
+Access(by index)	    O(1)	            O(1)	            Direct access using index
+Insert (end)	        O(1)	            O(n)	            Append at the end
+Insert(middle/start)	O(n)	            O(n)	            Shift elements
+Delete(end)             O(1)	            O(n)	            Direct remove
+Delete(middle/start)	O(n)	            O(n)	            Shift elements left
+Search(linear)	        O(n)	            O(1)	            Sequential comparison
+Sort	                O(n log n)	        O(n)	            Efficient hybrid sort
+Traverse	            O(n)	            O(1)	            Visit all elements
