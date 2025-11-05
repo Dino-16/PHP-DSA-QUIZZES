@@ -9,10 +9,12 @@ if(!isset($_SESSION['students'])) {
 $name = $_POST['student_name'];
 $grade = $_POST['student_grade'];
 
-$_SESSION['students'][] = [
+$student = [
     'name' => $name,
     'grade' => $grade,
-]
+];
+
+array_push($_SESSION['students'], $student);
 
 ?>
 
@@ -29,18 +31,29 @@ $_SESSION['students'][] = [
 
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
         <div>
-            <input type="text" name="student_name" placeholder="Student Name" required>
-            <input type="number" name="student_grade" placeholder="Grade Input" required>
+            <input type="text" id="name" name="student_name" placeholder="Student Name" required>
+            <input type="number" id="grade" name="student_grade" placeholder="Grade Input" required>
             <button type="submit">Create</button>
         </div>
     </form>
 
-    <div>
-        <?php
-            foreach($_SESSION['students'] as $student) {
-                 echo "Name: " . $student['name'] . " | Grade: " . $student['grade'] . "<br>";
-            }
-        ?>
+    <div class="table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($_SESSION['students'] as $student) : ?>
+                    <tr>
+                        <td><?php echo $student['name'] ?></td>
+                        <td><?php echo $student['grade'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
