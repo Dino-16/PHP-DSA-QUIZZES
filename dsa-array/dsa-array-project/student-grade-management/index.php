@@ -6,15 +6,24 @@ if(!isset($_SESSION['students'])) {
     $_SESSION['students'] = [];
 }
 
-$name = $_POST['student_name'];
-$grade = $_POST['student_grade'];
+if (!empty($_POST['student_name']) && isset($_POST['student_grade'])) {
+    $name = $_POST['student_name'];
+    $grade = $_POST['student_grade'];
 
-$student = [
-    'name' => $name,
-    'grade' => $grade,
-];
+    $student = [
+        'name' => $name,
+        'grade' => $grade,
+    ];
 
-array_push($_SESSION['students'], $student);
+    array_push($_SESSION['students'], $student);
+}
+
+
+if (isset($_POST['delete'])) {
+    $deleteIndex = $_POST['delete'];
+    unset($_SESSION['students'][$deleteIndex]);
+    $_SESSION['students'] = array_values($_SESSION['students']); 
+}
 
 ?>
 
@@ -43,13 +52,20 @@ array_push($_SESSION['students'], $student);
                 <tr>
                     <th>Name</th>
                     <th>Grade</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($_SESSION['students'] as $student) : ?>
+                <?php foreach($_SESSION['students'] as $index => $student) : ?>
                     <tr>
                         <td><?php echo $student['name'] ?></td>
                         <td><?php echo $student['grade'] ?></td>
+                        <td>
+                            <form method="POST">
+                                <input type="hidden" name="delete" value="<?php echo $index; ?>">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
