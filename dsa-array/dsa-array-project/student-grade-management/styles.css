@@ -13,13 +13,7 @@ input {
     margin-bottom: 10px;
 }
 
-#name {
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-#grade {
+#name, #grade, #search {
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
@@ -27,6 +21,7 @@ input {
 
 button {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .table {

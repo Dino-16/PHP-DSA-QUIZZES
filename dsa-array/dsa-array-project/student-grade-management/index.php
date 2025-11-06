@@ -25,6 +25,15 @@ if (isset($_POST['delete'])) {
     $_SESSION['students'] = array_values($_SESSION['students']); 
 }
 
+if(isset($_POST['search_name'])) {
+    $search = strtolower($_POST['search_name']);
+    $filtered = array_filter($_SESSION['students'], function($student) use ($search) {
+        return strpos(strtolower($student['name']), $search) !== false;
+    });
+}
+
+
+$studentsToDisplay = isset($filtered) ? $filtered : $_SESSION['students'];
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +46,15 @@ if (isset($_POST['delete'])) {
 </head>
 <body>
     <h1 class="title">Student Grade Management</h1>
+
+    <form method="POST">
+        <div>
+            <input type="search" id="search" name="search_name" placeholder="Search Student">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <h3 class="title">Add Student</h3>
 
     <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
         <div>
@@ -56,7 +74,7 @@ if (isset($_POST['delete'])) {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($_SESSION['students'] as $index => $student) : ?>
+                <?php foreach($studentsToDisplay as $index => $student) : ?>
                     <tr>
                         <td><?php echo $student['name'] ?></td>
                         <td><?php echo $student['grade'] ?></td>
